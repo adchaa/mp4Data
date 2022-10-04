@@ -1,7 +1,6 @@
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import atomType.*;
@@ -59,8 +58,8 @@ class Metadata {
             long typesize;
             Stream = new FileInputStream(Path);
             while ((b = Stream.readNBytes(ATOM_HEADER_SIZE)).length != 0) {
-                type = arrayByteToString(Arrays.copyOfRange(b, 0, 4));
-                typesize = arrayByteToUnsignedLong(Arrays.copyOfRange(b, 4, 8));
+                typesize = arrayByteToUnsignedLong(Arrays.copyOfRange(b, 0, 4));
+                type = arrayByteToString(Arrays.copyOfRange(b, 4, 8));
                 Types.add(type);
                 FileSize += typesize;
                 switch (type) {
@@ -75,12 +74,17 @@ class Metadata {
                         break;
                     default:
                         System.err.println(
-                                "atom type not supported.\nplease check the file extension. it need to be mp4");
+                                "ERROR : atom type not supported. please check the file extension. it need to be mp4");
+                        System.exit(0);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        new Metadata("video.mp4");
     }
 
     public static ArrayList<String> getTypes() {
