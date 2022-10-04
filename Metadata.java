@@ -1,6 +1,7 @@
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import atomType.*;
@@ -14,6 +15,9 @@ class Metadata {
     private static String Path;
     private static ArrayList<String> Types = new ArrayList<String>();
     private static long FileSize = 0;
+    public static ftyp ftyp;
+    public static moov moov;
+    public static mdat mdat;
 
     private static String byteToHex(byte i) {
         String output = Integer.toHexString((i & 0xff));
@@ -61,13 +65,13 @@ class Metadata {
                 FileSize += typesize;
                 switch (type) {
                     case "ftyp":
-                        ftyp ftyp = new ftyp(Stream);
+                        ftyp = new ftyp(Stream);
                         break;
                     case "moov":
-                        moov moov = new moov(Stream);
+                        moov = new moov(Stream);
                         break;
                     case "mdat":
-                        mdat mdat = new mdat(Stream);
+                        mdat = new mdat(Stream);
                         break;
                     default:
                         System.err.println(
@@ -77,6 +81,10 @@ class Metadata {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static ArrayList<String> getTypes() {
+        return Types;
     }
 
     public long getFileSize() {

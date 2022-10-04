@@ -6,5 +6,4 @@ public class ftyp {
     public ftyp(InputStream S) {
 
     }
-
 }
