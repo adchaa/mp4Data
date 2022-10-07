@@ -1,6 +1,12 @@
 package util;
 
+import java.util.Date;
+
 public class converter {
+
+    public static Date arrayByteToDate(byte[] b) {
+        return new Date(1000 * (arrayByteToUnsignedLong(b) - globalVariables.EPOCH_ADJUSTER));
+    }
 
     public static String byteToHex(byte i) {
         String output = Integer.toHexString((i & 0xff));

@@ -41,7 +41,7 @@ class Metadata {
                         break;
                     default:
                         System.err.println(
-                                "ERROR : atom type not supported. please check the file extension. it need to be mp4");
+                                "ERROR : atom type not supported.");
                         System.exit(0);
                 }
             }
