@@ -14,11 +14,11 @@ public class converter {
         return Float.intBitsToFloat((int) arrayByteToUnsignedLong(b));
     }
 
-    // return float because java doesn't have fixed point numbers
+    // return float because java doesn't support fixed point numbers
     public static float arrayByteToUnsignedFixedPoint(byte[] b) {
         int center = b.length / 2;
         long intPart = arrayByteToUnsignedLong(Arrays.copyOfRange(b, 0, center));
-        long fracPart = arrayByteToUnsignedLong(Arrays.copyOfRange(b, center, 4));
+        long fracPart = arrayByteToUnsignedLong(Arrays.copyOfRange(b, center, b.length));
         return Float.parseFloat(intPart + "." + fracPart);
     }
 

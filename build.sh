@@ -1,6 +1,5 @@
 #!/bin/bash
 FILES="*/*.java Metadata.java"
-echo $FILES
 for f in $FILES
 do
     echo "compiling : $f"
