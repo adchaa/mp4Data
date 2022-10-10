@@ -1,17 +1,14 @@
 package atomType;
 
-import java.io.IOException;
 import java.io.InputStream;
+import java.io.IOException;
 import java.util.Arrays;
-
 import util.*;
 
-public class moov {
-    public mvhd mvhd;
-    public trak trak;
+public class trak {
+    public tkhd tkhd;
 
-    public moov(InputStream S, long typesize) {
-
+    public trak(InputStream S, long typesize) {
         try {
             byte[] b;
             String type;
@@ -24,11 +21,8 @@ public class moov {
                 size += subtypesize;
                 System.out.println(" type now =" + type);
                 switch (type) {
-                    case "mvhd":
-                        mvhd = new mvhd(S);
-                        break;
-                    case "trak":
-                        trak = new trak(S, subtypesize);
+                    case "tkhd":
+                        tkhd = new tkhd(S);
                         break;
                     default:
                         System.err.println(
@@ -39,7 +33,5 @@ public class moov {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
 }

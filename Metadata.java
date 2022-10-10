@@ -31,10 +31,9 @@ class Metadata {
                 switch (type) {
                     case "ftyp":
                         ftyp = new ftyp(Stream, typesize);
-                        ftyp.printFtyp();
                         break;
                     case "moov":
-                        moov = new moov(Stream);
+                        moov = new moov(Stream, typesize);
                         break;
                     case "mdat":
                         mdat = new mdat(Stream);
