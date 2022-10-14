@@ -1,8 +1,4 @@
 #!/bin/bash
 FILES="*/*.java Metadata.java"
-for f in $FILES
-do
-    echo "compiling : $f"
-    javac $f
-done
+javac $FILES
 java Metadata

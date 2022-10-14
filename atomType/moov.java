@@ -22,7 +22,6 @@ public class moov {
                 subtypesize = converter.arrayByteToUnsignedLong(Arrays.copyOfRange(b, 0, 4));
                 type = converter.arrayByteToString(Arrays.copyOfRange(b, 4, 8));
                 size += subtypesize;
-                System.out.println(" type now =" + type);
                 switch (type) {
                     case "mvhd":
                         mvhd = new mvhd(S);

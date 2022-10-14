@@ -3,20 +3,19 @@ package atomType;
 import java.io.IOException;
 import java.io.InputStream;
 import util.converter;
+import java.util.ArrayList;
 
 public class ftyp {
-    public byte[] majorBrand = new byte[4];
-    public byte[] minorBrand = new byte[4];
-    public byte[][] compatibleBrand;
+    private byte[] majorBrand = new byte[4];
+    private byte[] minorBrand = new byte[4];
+    private byte[][] compatibleBrand;
 
     public void printFtyp() {
-        System.out.println("Major Brand : " + converter.arrayByteToString(majorBrand));
-        System.out.println("Minor Brand : " + converter.arrayByteToUnsignedLong(minorBrand));
-        System.out.print("Compatible brands : ");
-        for (int i = 0; i < compatibleBrand.length - 1; i++) {
-            System.out.print(converter.arrayByteToString(compatibleBrand[i]) + ",");
-        }
-        System.out.println(converter.arrayByteToString(compatibleBrand[compatibleBrand.length - 1]));
+        System.out.println("---------------------------------------------------------------------------------");
+        System.out.println("Major Brand : " + getMajorBrand());
+        System.out.println("Minor Brand : " + getMinorBrand());
+        System.out.println("Compatible brands : " + getCompatibleBrand());
+        System.out.println("---------------------------------------------------------------------------------");
     }
 
     public ftyp(InputStream S, long size) {
@@ -30,5 +29,21 @@ public class ftyp {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getMajorBrand() {
+        return converter.arrayByteToString(majorBrand);
+    }
+
+    public long getMinorBrand() {
+        return converter.arrayByteToUnsignedLong(minorBrand);
+    }
+
+    public ArrayList<String> getCompatibleBrand() {
+        ArrayList<String> output = new ArrayList<String>();
+        for (int i = 0; i < compatibleBrand.length; i++) {
+            output.add(converter.arrayByteToString(compatibleBrand[i]));
+        }
+        return output;
     }
 }

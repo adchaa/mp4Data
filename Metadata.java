@@ -7,7 +7,6 @@ import atomType.*;
 import util.*;
 
 class Metadata {
-
     private static InputStream Stream;
     private static String Path;
     private static ArrayList<String> Types = new ArrayList<String>();

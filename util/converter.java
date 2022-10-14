@@ -54,4 +54,8 @@ public class converter {
         return output;
     }
 
+    public static long ToTimeScale(byte[] b) {
+        return arrayByteToUnsignedLong(b) / globalVariables.getTIMESCALE();
+    }
+
 }
