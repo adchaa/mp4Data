@@ -30,6 +30,7 @@ class Metadata {
                 switch (type) {
                     case "ftyp":
                         ftyp = new ftyp(Stream, typesize);
+                        ftyp.printFtyp();
                         break;
                     case "moov":
                         moov = new moov(Stream, typesize);
@@ -38,9 +39,7 @@ class Metadata {
                         mdat = new mdat(Stream);
                         break;
                     default:
-                        System.err.println(
-                                "ERROR : atom type not supported.");
-                        System.exit(0);
+                        Log.logError("atom type (" + type + ") not supported.", true);
                 }
             }
         } catch (IOException e) {

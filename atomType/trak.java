@@ -19,15 +19,12 @@ public class trak {
                 subtypesize = converter.arrayByteToUnsignedLong(Arrays.copyOfRange(b, 0, 4));
                 type = converter.arrayByteToString(Arrays.copyOfRange(b, 4, 8));
                 size += subtypesize;
-                System.out.println(" type now =" + type);
                 switch (type) {
                     case "tkhd":
                         tkhd = new tkhd(S);
                         break;
                     default:
-                        System.err.println(
-                                "ERROR : atom type not supported. moov");
-                        System.exit(1);
+                        Log.logError("atom type \"" + type + "\" is not supported.", true);
                 }
             }
         } catch (IOException e) {

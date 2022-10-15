@@ -25,14 +25,13 @@ public class moov {
                 switch (type) {
                     case "mvhd":
                         mvhd = new mvhd(S);
+                        mvhd.printMvhd();
                         break;
                     case "trak":
                         trak = new trak(S, subtypesize);
                         break;
                     default:
-                        System.err.println(
-                                "ERROR : atom type not supported. moov");
-                        System.exit(1);
+                        Log.logError("atom type not supported.", true);
                 }
             }
         } catch (IOException e) {

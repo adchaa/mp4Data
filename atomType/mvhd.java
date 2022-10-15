@@ -54,22 +54,21 @@ public class mvhd {
     }
 
     public void printMvhd() {
-        System.out.println("---------------------------------------------------------------------------------");
-        System.out.println("mvhd:");
-        System.out.println("Version : " + getVersion());
-        System.out.println("Creation time : " + getCreationTime());
-        System.out.println("Modification time : " + getModificationTime());
-        System.out.println("Duration : " + getDuration());
-        System.out.println("Preferred rate : " + getPreferredRate());
-        System.out.println("Preferred Volume : " + getPreferredVolume());
-        System.out.println("Preview time : " + getPreviewTime());
-        System.out.println("Preview duration : " + getPreviewDuration());
-        System.out.println("Poster time : " + getPosterTime());
-        System.out.println("Selection time : " + getSelectionTime());
-        System.out.println("Selection Duration : " + getSelectionDuration());
-        System.out.println("Current time : " + getCurrentTime());
-        System.out.println("Next track ID : " + getNextTrackID());
-        System.out.println("---------------------------------------------------------------------------------");
+        Log.logType("MVHD");
+        Log.logElement("Version", getVersion());
+        Log.logElement("Creation time", getCreationTime());
+        Log.logElement("Modification time", getModificationTime());
+        Log.logElement("Duration", getDuration());
+        Log.logElement("Preferred rate", getPreferredRate());
+        Log.logElement("Preferred Volume", getPreferredVolume());
+        Log.logElement("Preview time", getPreviewTime());
+        Log.logElement("Preview duration", getPreviewDuration());
+        Log.logElement("Poster time", getPosterTime());
+        Log.logElement("Selection time", getSelectionTime());
+        Log.logElement("Selection Duration", getSelectionDuration());
+        Log.logElement("Current time", getCurrentTime());
+        Log.logElement("Next track ID", getNextTrackID());
+        Log.line();
     }
 
     public long getPreviewTime() {

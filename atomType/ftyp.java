@@ -2,7 +2,7 @@ package atomType;
 
 import java.io.IOException;
 import java.io.InputStream;
-import util.converter;
+import util.*;
 import java.util.ArrayList;
 
 public class ftyp {
@@ -11,11 +11,11 @@ public class ftyp {
     private byte[][] compatibleBrand;
 
     public void printFtyp() {
-        System.out.println("---------------------------------------------------------------------------------");
-        System.out.println("Major Brand : " + getMajorBrand());
-        System.out.println("Minor Brand : " + getMinorBrand());
-        System.out.println("Compatible brands : " + getCompatibleBrand());
-        System.out.println("---------------------------------------------------------------------------------");
+        Log.logType("FTYP");
+        Log.logElement("Major Brand", getMajorBrand());
+        Log.logElement("Minor Brand", getMinorBrand());
+        Log.logElement("Compatible brands", getCompatibleBrand());
+        Log.line();
     }
 
     public ftyp(InputStream S, long size) {
