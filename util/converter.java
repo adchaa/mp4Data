@@ -14,6 +14,29 @@ public class converter {
         return Float.intBitsToFloat((int) arrayByteToUnsignedLong(b));
     }
 
+    // info :
+    // https://developer.apple.com/library/archive/documentation/QuickTime/QTFF/QTFFChap4/qtff4.html#//apple_ref/doc/uid/TP40000939-CH206-18737
+    public static float[][] toTransformationMatrix(byte[] b) {
+        float[][] output = new float[3][3];
+        for (byte i = 0; i < 3; i++) {
+            for (byte j = 0; j < 2; j++) {
+                output[i][j] = arrayByteToUnsignedFixedPoint(
+                        Arrays.copyOfRange(b, ((i * 3) + j) * 4, ((i * 3) + j + 1) * 4));
+            }
+            output[i][2] = arrayByteToUnsignedFixedPoint2_30(
+                    Arrays.copyOfRange(b, ((i * 3) + 2) * 4, ((i * 3) + 2 + 1) * 4));
+        }
+        return output;
+    }
+
+    public static float arrayByteToUnsignedFixedPoint2_30(byte[] b) {
+        int intPart = b[0] >> 6;
+        b[0] = (byte) (b[0] & 0x3F);
+        long fracPart = arrayByteToUnsignedLong(b);
+
+        return Float.parseFloat(intPart + "." + fracPart);
+    }
+
     // return float because java doesn't support fixed point numbers
     public static float arrayByteToUnsignedFixedPoint(byte[] b) {
         int center = b.length / 2;

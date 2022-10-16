@@ -1,6 +1,8 @@
 package atomType;
 
 import java.io.InputStream;
+
+import util.Log;
 import util.converter;
 import java.io.IOException;
 import java.util.Date;
@@ -16,11 +18,26 @@ public class tkhd {
     private byte[] Layer = new byte[2];
     // TODO : understand what is alternategroup and add it to print
     private byte[] AlternateGroup = new byte[2];
+    // TODO : volume print 0.0 it should be 1.0 i think because video have no audio
     private byte[] Volume = new byte[2];
     // TODO : understand what is MatrixStructure and add it to print
     private byte[] MatrixStructure = new byte[36];
     private byte[] Width = new byte[4];
     private byte[] Height = new byte[4];
+
+    public void printTkhd() {
+        Log.logType("TKHD");
+        Log.logElement("Version", getVersion());
+        Log.logElement("Creation Time", getCreationTime());
+        Log.logElement("Modification Time", getModificationTime());
+        Log.logElement("Track ID", getTrackID());
+        Log.logElement("Duration", getDuration());
+        Log.logElement("Layer", getLayer());
+        Log.logElement("Volume", getVolume());
+        Log.logElement("Width", getWidth());
+        Log.logElement("Height", getHeight());
+        Log.line();
+    }
 
     public tkhd(InputStream S) {
         // S.skip is used to skip bytes that is reseverd for apple

@@ -31,7 +31,7 @@ public class moov {
                         trak = new trak(S, subtypesize);
                         break;
                     default:
-                        Log.logError("atom type not supported.", true);
+                        Log.logError("atom type \"" + type + "\" not supported.", true);
                 }
             }
         } catch (IOException e) {

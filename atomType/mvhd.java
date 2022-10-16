@@ -2,14 +2,13 @@ package atomType;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Date;
 
 import util.*;
 
 public class mvhd {
     private byte[] Version = new byte[1];
-    // TODO : understand what is flag and add it to print
+    // useless flags (not sure)
     private byte[] Flags = new byte[3];
     private byte[] CreationTime = new byte[4];
     private byte[] ModificationTime = new byte[4];
@@ -17,7 +16,6 @@ public class mvhd {
     private byte[] Duration = new byte[4];
     private byte[] PreferredRate = new byte[4];
     private byte[] PreferredVolume = new byte[2];
-    // TODO : understand what is MatrixStructure and add it to print
     private byte[] MatrixStructure = new byte[36];
     private byte[] PreviewTime = new byte[4];
     private byte[] PreviewDuration = new byte[4];
@@ -61,6 +59,9 @@ public class mvhd {
         Log.logElement("Duration", getDuration());
         Log.logElement("Preferred rate", getPreferredRate());
         Log.logElement("Preferred Volume", getPreferredVolume());
+        // TODO : find solution how to print matrix
+        // TODO : Solution is to create another function called Log.logMatrixElement()
+        Log.logElement("Transformation matrix", getMatrixStructure());
         Log.logElement("Preview time", getPreviewTime());
         Log.logElement("Preview duration", getPreviewDuration());
         Log.logElement("Poster time", getPosterTime());
@@ -122,6 +123,10 @@ public class mvhd {
 
     public long getNextTrackID() {
         return converter.arrayByteToUnsignedLong(NextTrackID);
+    }
+
+    public float[][] getMatrixStructure() {
+        return converter.toTransformationMatrix(MatrixStructure);
     }
 
 }

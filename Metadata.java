@@ -39,7 +39,7 @@ class Metadata {
                         mdat = new mdat(Stream);
                         break;
                     default:
-                        Log.logError("atom type (" + type + ") not supported.", true);
+                        Log.logError("atom type \"" + type + "\" not supported.", true);
                 }
             }
         } catch (IOException e) {

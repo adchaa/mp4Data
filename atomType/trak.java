@@ -22,6 +22,7 @@ public class trak {
                 switch (type) {
                     case "tkhd":
                         tkhd = new tkhd(S);
+                        tkhd.printTkhd();
                         break;
                     default:
                         Log.logError("atom type \"" + type + "\" is not supported.", true);
