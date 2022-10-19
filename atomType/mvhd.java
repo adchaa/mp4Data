@@ -7,48 +7,81 @@ import java.util.Date;
 import util.*;
 
 public class mvhd {
-    private byte[] Version = new byte[1];
-    // useless flags (not sure)
-    private byte[] Flags = new byte[3];
-    private byte[] CreationTime = new byte[4];
-    private byte[] ModificationTime = new byte[4];
-    private byte[] TimeScale = new byte[4];
-    private byte[] Duration = new byte[4];
-    private byte[] PreferredRate = new byte[4];
-    private byte[] PreferredVolume = new byte[2];
-    private byte[] MatrixStructure = new byte[36];
-    private byte[] PreviewTime = new byte[4];
-    private byte[] PreviewDuration = new byte[4];
-    private byte[] PosterTime = new byte[4];
-    private byte[] SelectionTime = new byte[4];
-    private byte[] SelectionDuration = new byte[4];
-    private byte[] CurrentTime = new byte[4];
-    private byte[] NextTrackID = new byte[4];
+    private byte[] ByteVersion = new byte[1];
+    private byte[] ByteFlags = new byte[3];
+    private byte[] ByteCreationTime = new byte[4];
+    private byte[] ByteModificationTime = new byte[4];
+    private byte[] ByteTimeScale = new byte[4];
+    private byte[] ByteDuration = new byte[4];
+    private byte[] BytePreferredRate = new byte[4];
+    private byte[] BytePreferredVolume = new byte[2];
+    private byte[] ByteMatrixStructure = new byte[36];
+    private byte[] BytePreviewTime = new byte[4];
+    private byte[] BytePreviewDuration = new byte[4];
+    private byte[] BytePosterTime = new byte[4];
+    private byte[] ByteSelectionTime = new byte[4];
+    private byte[] ByteSelectionDuration = new byte[4];
+    private byte[] ByteCurrentTime = new byte[4];
+    private byte[] ByteNextTrackID = new byte[4];
+
+    private int Version;
+    private Date CreationTime;
+    private Date ModificationTime;
+    private long Duration;
+    private float PreferredRate;
+    private float PreferredVolume;
+    private float[][] MatrixStructure;
+    private long PreviewTime;
+    private long PreviewDuration;
+    private long PosterTime;
+    private long SelectionTime;
+    private long SelectionDuration;
+    private long CurrentTime;
+    private long NextTrackID;
 
     public mvhd(InputStream S) {
         try {
-            S.read(Version);
-            S.read(Flags);
-            S.read(CreationTime);
-            S.read(ModificationTime);
-            S.read(TimeScale);
-            S.read(Duration);
-            S.read(PreferredRate);
-            S.read(PreferredVolume);
-            // skipped 10 byte because it is reserved for apple
+            S.read(ByteVersion);
+            S.read(ByteFlags);
+            S.read(ByteCreationTime);
+            S.read(ByteModificationTime);
+            S.read(ByteTimeScale);
+            S.read(ByteDuration);
+            S.read(BytePreferredRate);
+            S.read(BytePreferredVolume);
+            // skipByteped 10 byte because it is reserved for apple
             S.skip(10);
-            S.read(MatrixStructure);
-            S.read(PreviewTime);
-            S.read(PreviewDuration);
-            S.read(PosterTime);
-            S.read(SelectionTime);
-            S.read(SelectionDuration);
-            S.read(CurrentTime);
-            S.read(NextTrackID);
+            S.read(ByteMatrixStructure);
+            S.read(BytePreviewTime);
+            S.read(BytePreviewDuration);
+            S.read(BytePosterTime);
+            S.read(ByteSelectionTime);
+            S.read(ByteSelectionDuration);
+            S.read(ByteCurrentTime);
+            S.read(ByteNextTrackID);
+
+            initValues();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        globalVariables.setTIMESCALE(converter.arrayByteToUnsignedLong(TimeScale));
+    }
+
+    private void initValues() {
+        globalVariables.setTIMESCALE(converter.arrayByteToUnsignedLong(ByteTimeScale));
+        Version = (ByteVersion[0] & 0xFF);
+        CreationTime = converter.arrayByteToDate(ByteCreationTime);
+        ModificationTime = converter.arrayByteToDate(ByteModificationTime);
+        Duration = converter.ToTimeScale(ByteDuration);
+        PreferredRate = converter.arrayByteToUnsignedFixedPoint(BytePreferredRate);
+        PreferredVolume = converter.arrayByteToUnsignedFixedPoint(BytePreferredVolume);
+        MatrixStructure = converter.toTransformationMatrix(ByteMatrixStructure);
+        PreviewTime = converter.arrayByteToUnsignedLong(BytePreviewTime);
+        PreviewDuration = converter.ToTimeScale(BytePreviewDuration);
+        PosterTime = converter.arrayByteToUnsignedLong(BytePosterTime);
+        SelectionTime = converter.arrayByteToUnsignedLong(ByteSelectionTime);
+        SelectionDuration = converter.ToTimeScale(ByteSelectionDuration);
+        CurrentTime = converter.arrayByteToUnsignedLong(ByteCurrentTime);
+        NextTrackID = converter.arrayByteToUnsignedLong(ByteNextTrackID);
     }
 
     public void printMvhd() {
@@ -59,9 +92,7 @@ public class mvhd {
         Log.logElement("Duration", getDuration());
         Log.logElement("Preferred rate", getPreferredRate());
         Log.logElement("Preferred Volume", getPreferredVolume());
-        // TODO : find solution how to print matrix
-        // TODO : Solution is to create another function called Log.logMatrixElement()
-        Log.logElement("Transformation matrix", getMatrixStructure());
+        Log.LogMatrix("Transformation matrix", getMatrixStructure());
         Log.logElement("Preview time", getPreviewTime());
         Log.logElement("Preview duration", getPreviewDuration());
         Log.logElement("Poster time", getPosterTime());
@@ -72,61 +103,60 @@ public class mvhd {
         Log.line();
     }
 
-    public long getPreviewTime() {
-        return converter.arrayByteToUnsignedLong(PreviewTime);
-    }
-
-    public long getPreviewDuration() {
-        return converter.ToTimeScale(PreviewDuration);
-    }
-
-    public long getPosterTime() {
-        return converter.arrayByteToUnsignedLong(PosterTime);
-    }
-
-    public long getSelectionTime() {
-        return converter.arrayByteToUnsignedLong(SelectionTime);
-    }
-
-    public long getSelectionDuration() {
-        return converter.ToTimeScale(SelectionDuration);
-
+    public Date getCreationTime() {
+        return CreationTime;
     }
 
     public long getCurrentTime() {
-        return converter.arrayByteToUnsignedLong(CurrentTime);
+        return CurrentTime;
     }
 
     public int getVersion() {
-        return (Version[0] & 0XFF);
-    }
-
-    public Date getCreationTime() {
-        return converter.arrayByteToDate(CreationTime);
+        return Version;
     }
 
     public Date getModificationTime() {
-        return converter.arrayByteToDate(ModificationTime);
+        return ModificationTime;
     }
 
     public long getDuration() {
-        return converter.ToTimeScale(Duration);
+        return Duration;
     }
 
     public float getPreferredRate() {
-        return converter.arrayByteToUnsignedFixedPoint(PreferredRate);
+        return PreferredRate;
     }
 
     public float getPreferredVolume() {
-        return converter.arrayByteToUnsignedFixedPoint(PreferredVolume);
-    }
-
-    public long getNextTrackID() {
-        return converter.arrayByteToUnsignedLong(NextTrackID);
+        return PreferredVolume;
     }
 
     public float[][] getMatrixStructure() {
-        return converter.toTransformationMatrix(MatrixStructure);
+        return MatrixStructure;
+    }
+
+    public long getPreviewDuration() {
+        return PreviewDuration;
+    }
+
+    public long getPreviewTime() {
+        return PreviewTime;
+    }
+
+    public long getPosterTime() {
+        return PosterTime;
+    }
+
+    public long getSelectionDuration() {
+        return SelectionDuration;
+    }
+
+    public long getSelectionTime() {
+        return SelectionTime;
+    }
+
+    public long getNextTrackID() {
+        return NextTrackID;
     }
 
 }

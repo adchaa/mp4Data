@@ -21,6 +21,18 @@ public class Log {
     private static final String BACKGROUND_CYAN = "\u001B[46m";
     private static final String BACKGROUND_WHITE = "\u001B[47m";
 
+    public static void LogMatrix(String element, float[][] o) {
+        System.out.println(CYAN + element + " : " + SANE);
+        for (int i = 0; i < o.length; i++) {
+            System.out.print("[");
+            for (int j = 0; j < o.length - 1; j++) {
+                System.out.print(o[i][j] + ",");
+            }
+            System.out.println(o[i][o.length - 1] + "]");
+
+        }
+    }
+
     public static void logError(String msg, boolean exit) {
         System.err.println(RED + "ERROR" + " : " + SANE + msg);
         if (exit) {

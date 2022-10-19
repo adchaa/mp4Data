@@ -33,7 +33,6 @@ public class converter {
         int intPart = b[0] >> 6;
         b[0] = (byte) (b[0] & 0x3F);
         long fracPart = arrayByteToUnsignedLong(b);
-
         return Float.parseFloat(intPart + "." + fracPart);
     }
 
