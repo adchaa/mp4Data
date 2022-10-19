@@ -6,44 +6,53 @@ import util.*;
 import java.util.ArrayList;
 
 public class ftyp {
-    private byte[] majorBrand = new byte[4];
-    private byte[] minorBrand = new byte[4];
-    private byte[][] compatibleBrand;
+    private byte[] byteMajorbrand = new byte[4];
+    private byte[] byteMinorbrand = new byte[4];
+    private byte[][] byteCompatiblebrand;
+
+    private String Majorbrand;
+    private long Minorbrand;
+    private ArrayList<String> Compatiblebrand;
 
     public void printFtyp() {
         Log.logType("FTYP");
-        Log.logElement("Major Brand", getMajorBrand());
-        Log.logElement("Minor Brand", getMinorBrand());
-        Log.logElement("Compatible brands", getCompatibleBrand());
+        Log.logElement("Major Brand", Majorbrand);
+        Log.logElement("Minor Brand", Minorbrand));
+        Log.logElement("Compatible brands", Compatiblebrand);
         Log.line();
     }
 
+    public void initValues(){
+        Majorbrand = converter.arrayByteToString(ByteMajorBrand);
+        Minorbrand = converter.arrayByteToUnsignedLong(ByteMinorBrand);
+        Compatiblebrand = new ArrayList<String>();
+        for (int i = 0; i < compatibleBrand.length; i++) {
+            Compatiblebrand.add(converter.arrayByteToString(ByteCompatibleBrand[i]));
+        }
+    }
     public ftyp(InputStream S, long size) {
         compatibleBrand = new byte[(int) (size - 16) / 4][4];
         try {
-            S.read(majorBrand);
-            S.read(minorBrand);
-            for (int i = 0; i < compatibleBrand.length; i++) {
-                S.read(compatibleBrand[i]);
+            S.read(ByteMajorBrand);
+            S.read(ByteMinorBrand);
+            for (int i = 0; i < ByteCompatibleBrand.length; i++) {
+                S.read(ByteCompatibleBrand[i]);
             }
-        } catch (IOException e) {
+            initValues();
+         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public String getMajorBrand() {
-        return converter.arrayByteToString(majorBrand);
+        return Majorbrand;
     }
 
     public long getMinorBrand() {
-        return converter.arrayByteToUnsignedLong(minorBrand);
+        return Minorbrand;
     }
 
     public ArrayList<String> getCompatibleBrand() {
-        ArrayList<String> output = new ArrayList<String>();
-        for (int i = 0; i < compatibleBrand.length; i++) {
-            output.add(converter.arrayByteToString(compatibleBrand[i]));
-        }
-        return output;
+        return Compatiblebrand;
     }
 }
