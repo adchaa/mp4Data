@@ -6,9 +6,9 @@ import util.*;
 import java.util.ArrayList;
 
 public class ftyp {
-    private byte[] byteMajorbrand = new byte[4];
-    private byte[] byteMinorbrand = new byte[4];
-    private byte[][] byteCompatiblebrand;
+    private byte[] ByteMajorBrand = new byte[4];
+    private byte[] ByteMinorBrand = new byte[4];
+    private byte[][] ByteCompatibleBrand;
 
     private String Majorbrand;
     private long Minorbrand;
@@ -17,21 +17,22 @@ public class ftyp {
     public void printFtyp() {
         Log.logType("FTYP");
         Log.logElement("Major Brand", Majorbrand);
-        Log.logElement("Minor Brand", Minorbrand));
+        Log.logElement("Minor Brand", Minorbrand);
         Log.logElement("Compatible brands", Compatiblebrand);
         Log.line();
     }
 
-    public void initValues(){
+    public void initValues() {
         Majorbrand = converter.arrayByteToString(ByteMajorBrand);
         Minorbrand = converter.arrayByteToUnsignedLong(ByteMinorBrand);
         Compatiblebrand = new ArrayList<String>();
-        for (int i = 0; i < compatibleBrand.length; i++) {
+        for (int i = 0; i < ByteCompatibleBrand.length; i++) {
             Compatiblebrand.add(converter.arrayByteToString(ByteCompatibleBrand[i]));
         }
     }
+
     public ftyp(InputStream S, long size) {
-        compatibleBrand = new byte[(int) (size - 16) / 4][4];
+        ByteCompatibleBrand = new byte[(int) (size - 16) / 4][4];
         try {
             S.read(ByteMajorBrand);
             S.read(ByteMinorBrand);
@@ -39,7 +40,7 @@ public class ftyp {
                 S.read(ByteCompatibleBrand[i]);
             }
             initValues();
-         } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
