@@ -59,7 +59,6 @@ public class mvhd {
             S.read(ByteSelectionDuration);
             S.read(ByteCurrentTime);
             S.read(ByteNextTrackID);
-
             initValues();
         } catch (IOException e) {
             e.printStackTrace();

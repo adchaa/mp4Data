@@ -8,93 +8,116 @@ import java.io.IOException;
 import java.util.Date;
 
 public class tkhd {
-    private byte[] Version = new byte[1];
+    private byte[] ByteVersion = new byte[1];
     // TODO : understand what is flag and add it to print
-    private byte[] Flags = new byte[3];
-    private byte[] CreationTime = new byte[4];
-    private byte[] ModificationTime = new byte[4];
-    private byte[] TrackID = new byte[4];
-    private byte[] Duration = new byte[4];
-    private byte[] Layer = new byte[2];
+    private byte[] ByteFlags = new byte[3];
+    private byte[] ByteCreationTime = new byte[4];
+    private byte[] ByteModificationTime = new byte[4];
+    private byte[] ByteTrackID = new byte[4];
+    private byte[] ByteDuration = new byte[4];
+    private byte[] ByteLayer = new byte[2];
     // TODO : understand what is alternategroup and add it to print
-    private byte[] AlternateGroup = new byte[2];
+    private byte[] ByteAlternateGroup = new byte[2];
     // TODO : volume print 0.0 it should be 1.0 i think because video have no audio
-    private byte[] Volume = new byte[2];
+    private byte[] ByteVolume = new byte[2];
     // TODO : understand what is MatrixStructure and add it to print
-    private byte[] MatrixStructure = new byte[36];
-    private byte[] Width = new byte[4];
-    private byte[] Height = new byte[4];
+    private byte[] ByteMatrixStructure = new byte[36];
+    private byte[] ByteWidth = new byte[4];
+    private byte[] ByteHeight = new byte[4];
+
+    // add flag alternategroup and matrix
+    private int Version;
+    private Date CreationTime;
+    private Date ModificationTime;
+    private long TrackID;
+    private long Duration;
+    private long Layer;
+    private float Volume;
+    private float Width;
+    private float Height;
 
     public void printTkhd() {
         Log.logType("TKHD");
-        Log.logElement("Version", getVersion());
-        Log.logElement("Creation Time", getCreationTime());
-        Log.logElement("Modification Time", getModificationTime());
-        Log.logElement("Track ID", getTrackID());
-        Log.logElement("Duration", getDuration());
-        Log.logElement("Layer", getLayer());
-        Log.logElement("Volume", getVolume());
-        Log.logElement("Width", getWidth());
-        Log.logElement("Height", getHeight());
+        Log.logElement("Version", Version);
+        Log.logElement("Creation Time", CreationTime);
+        Log.logElement("Modification Time", ModificationTime);
+        Log.logElement("Track ID", TrackID);
+        Log.logElement("Duration", Duration);
+        Log.logElement("Layer", Layer);
+        Log.logElement("Volume", Volume);
+        Log.logElement("Width", Width);
+        Log.logElement("Height", Height);
         Log.line();
+    }
+
+    private void initValues() {
+        Version = (ByteVersion[0] & 0xFF);
+        CreationTime = converter.arrayByteToDate(ByteCreationTime);
+        ModificationTime = converter.arrayByteToDate(ByteModificationTime);
+        TrackID = converter.arrayByteToUnsignedLong(ByteTrackID);
+        Duration = converter.ToTimeScale(ByteDuration);
+        Volume = converter.arrayByteToFloat(ByteVolume);
+        Height = converter.arrayByteToUnsignedFixedPoint(ByteHeight);
+        Width = converter.arrayByteToUnsignedFixedPoint(ByteWidth);
     }
 
     public tkhd(InputStream S) {
         // S.skip is used to skip bytes that is reseverd for apple
         try {
-            S.read(Version);
-            S.read(Flags);
-            S.read(CreationTime);
-            S.read(ModificationTime);
-            S.read(TrackID);
+            S.read(ByteVersion);
+            S.read(ByteFlags);
+            S.read(ByteCreationTime);
+            S.read(ByteModificationTime);
+            S.read(ByteTrackID);
             S.skip(4);
-            S.read(Duration);
+            S.read(ByteDuration);
             S.skip(8);
-            S.read(Layer);
-            S.read(AlternateGroup);
-            S.read(Volume);
+            S.read(ByteLayer);
+            S.read(ByteAlternateGroup);
+            S.read(ByteVolume);
             S.skip(2);
-            S.read(MatrixStructure);
-            S.read(Width);
-            S.read(Height);
+            S.read(ByteMatrixStructure);
+            S.read(ByteWidth);
+            S.read(ByteHeight);
+            initValues();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public int getVersion() {
-        return (Version[0] & 0xFF);
+        return Version;
     }
 
     public Date getCreationTime() {
-        return converter.arrayByteToDate(CreationTime);
+        return CreationTime;
     }
 
     public Date getModificationTime() {
-        return converter.arrayByteToDate(ModificationTime);
+        return ModificationTime;
     }
 
     public long getTrackID() {
-        return converter.arrayByteToUnsignedLong(TrackID);
+        return TrackID;
     }
 
     public long getDuration() {
-        return converter.ToTimeScale(Duration);
+        return Duration;
     }
 
     public float getVolume() {
-        return converter.arrayByteToFloat(Volume);
+        return Volume;
     }
 
     public long getLayer() {
-        return converter.arrayByteToUnsignedLong(Layer);
+        return Layer;
     }
 
     public float getHeight() {
-        return converter.arrayByteToUnsignedFixedPoint(Height);
+        return Height;
     }
 
     public float getWidth() {
-        return converter.arrayByteToUnsignedFixedPoint(Width);
+        return Width;
     }
 }
