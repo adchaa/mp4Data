@@ -85,20 +85,20 @@ public class mvhd {
 
     public void printMvhd() {
         Log.logType("MVHD");
-        Log.logElement("Version", getVersion());
-        Log.logElement("Creation time", getCreationTime());
-        Log.logElement("Modification time", getModificationTime());
-        Log.logElement("Duration", getDuration());
-        Log.logElement("Preferred rate", getPreferredRate());
-        Log.logElement("Preferred Volume", getPreferredVolume());
-        Log.LogMatrix("Transformation matrix", getMatrixStructure());
-        Log.logElement("Preview time", getPreviewTime());
-        Log.logElement("Preview duration", getPreviewDuration());
-        Log.logElement("Poster time", getPosterTime());
-        Log.logElement("Selection time", getSelectionTime());
-        Log.logElement("Selection Duration", getSelectionDuration());
-        Log.logElement("Current time", getCurrentTime());
-        Log.logElement("Next track ID", getNextTrackID());
+        Log.logElement("Version", Version);
+        Log.logElement("Creation time", CreationTime);
+        Log.logElement("Modification time", ModificationTime);
+        Log.logElement("Duration", Duration);
+        Log.logElement("Preferred rate", PreferredRate);
+        Log.logElement("Preferred Volume", PreferredVolume);
+        Log.LogMatrix("Transformation matrix", MatrixStructure);
+        Log.logElement("Preview time", PreviewTime);
+        Log.logElement("Preview duration", PreviewDuration);
+        Log.logElement("Poster time", PosterTime);
+        Log.logElement("Selection time", SelectionTime);
+        Log.logElement("Selection Duration", SelectionDuration);
+        Log.logElement("Current time", CurrentTime);
+        Log.logElement("Next track ID", NextTrackID);
         Log.line();
     }
 

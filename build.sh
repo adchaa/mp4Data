@@ -1,4 +1,4 @@
 #!/bin/bash
-FILES="*/*.java Metadata.java"
+FILES="*/*.java *.java"
 javac $FILES
 java Metadata
