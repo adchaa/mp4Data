@@ -12,7 +12,7 @@ example:
 
 Majorbrand ---> getMajorBrand()
 
-### 1) **ftyp**
+### 1) ftyp
 
 - Majorbrand
 - Minorbrand
@@ -24,9 +24,9 @@ Majorbrand ---> getMajorBrand()
     private ArrayList<String> Compatiblebrand;
 ```
 
-### 2) **moov** :
+### 2) moov :
 
-### A) mvhd :
+#### A) mvhd :
 
 - Version
 - CreationTime
@@ -60,9 +60,9 @@ Majorbrand ---> getMajorBrand()
     private long NextTrackID;
 ```
 
-### B) trak :
+#### B) trak :
 
-### a) tkhd :
+##### a) tkhd :
 
 - Version
 - CreationTime
