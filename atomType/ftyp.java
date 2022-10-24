@@ -15,11 +15,11 @@ public class ftyp {
     private ArrayList<String> Compatiblebrand;
 
     public void printFtyp() {
-        Log.logType("FTYP");
-        Log.logElement("Major Brand", Majorbrand);
-        Log.logElement("Minor Brand", Minorbrand);
-        Log.logElement("Compatible brands", Compatiblebrand);
-        Log.line();
+        log.logType("FTYP");
+        log.logElement("Major Brand", Majorbrand);
+        log.logElement("Minor Brand", Minorbrand);
+        log.logElement("Compatible brands", Compatiblebrand);
+        log.line();
     }
 
     public void initValues() {

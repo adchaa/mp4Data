@@ -84,22 +84,22 @@ public class mvhd {
     }
 
     public void printMvhd() {
-        Log.logType("MVHD");
-        Log.logElement("Version", Version);
-        Log.logElement("Creation time", CreationTime);
-        Log.logElement("Modification time", ModificationTime);
-        Log.logElement("Duration", Duration);
-        Log.logElement("Preferred rate", PreferredRate);
-        Log.logElement("Preferred Volume", PreferredVolume);
-        Log.LogMatrix("Transformation matrix", MatrixStructure);
-        Log.logElement("Preview time", PreviewTime);
-        Log.logElement("Preview duration", PreviewDuration);
-        Log.logElement("Poster time", PosterTime);
-        Log.logElement("Selection time", SelectionTime);
-        Log.logElement("Selection Duration", SelectionDuration);
-        Log.logElement("Current time", CurrentTime);
-        Log.logElement("Next track ID", NextTrackID);
-        Log.line();
+        log.logType("MVHD");
+        log.logElement("Version", Version);
+        log.logElement("Creation time", CreationTime);
+        log.logElement("Modification time", ModificationTime);
+        log.logElement("Duration", Duration);
+        log.logElement("Preferred rate", PreferredRate);
+        log.logElement("Preferred Volume", PreferredVolume);
+        log.LogMatrix("Transformation matrix", MatrixStructure);
+        log.logElement("Preview time", PreviewTime);
+        log.logElement("Preview duration", PreviewDuration);
+        log.logElement("Poster time", PosterTime);
+        log.logElement("Selection time", SelectionTime);
+        log.logElement("Selection Duration", SelectionDuration);
+        log.logElement("Current time", CurrentTime);
+        log.logElement("Next track ID", NextTrackID);
+        log.line();
     }
 
     public Date getCreationTime() {

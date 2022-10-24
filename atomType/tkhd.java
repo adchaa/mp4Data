@@ -2,7 +2,7 @@ package atomType;
 
 import java.io.InputStream;
 
-import util.Log;
+import util.log;
 import util.converter;
 import java.io.IOException;
 import java.util.Date;
@@ -37,17 +37,17 @@ public class tkhd {
     private float Height;
 
     public void printTkhd() {
-        Log.logType("TKHD");
-        Log.logElement("Version", Version);
-        Log.logElement("Creation Time", CreationTime);
-        Log.logElement("Modification Time", ModificationTime);
-        Log.logElement("Track ID", TrackID);
-        Log.logElement("Duration", Duration);
-        Log.logElement("Layer", Layer);
-        Log.logElement("Volume", Volume);
-        Log.logElement("Width", Width);
-        Log.logElement("Height", Height);
-        Log.line();
+        log.logType("TKHD");
+        log.logElement("Version", Version);
+        log.logElement("Creation Time", CreationTime);
+        log.logElement("Modification Time", ModificationTime);
+        log.logElement("Track ID", TrackID);
+        log.logElement("Duration", Duration);
+        log.logElement("Layer", Layer);
+        log.logElement("Volume", Volume);
+        log.logElement("Width", (int) Width);
+        log.logElement("Height", (int) Height);
+        log.line();
     }
 
     private void initValues() {

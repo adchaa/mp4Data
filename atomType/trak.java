@@ -25,7 +25,7 @@ public class trak {
                         tkhd.printTkhd();
                         break;
                     default:
-                        Log.logError("atom type \"" + type + "\" is not supported.", true);
+                        log.logError("atom type \"" + type + "\" is not supported.", true);
                 }
             }
         } catch (IOException e) {
