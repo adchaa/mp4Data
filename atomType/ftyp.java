@@ -5,7 +5,7 @@ import java.io.InputStream;
 import util.*;
 import java.util.ArrayList;
 
-public class ftyp {
+public class ftyp implements atom {
     private byte[] ByteMajorBrand = new byte[4];
     private byte[] ByteMinorBrand = new byte[4];
     private byte[][] ByteCompatibleBrand;
@@ -14,7 +14,7 @@ public class ftyp {
     private long Minorbrand;
     private ArrayList<String> Compatiblebrand;
 
-    public void printFtyp() {
+    public void printData() {
         log.logType("FTYP");
         log.logElement("Major Brand", Majorbrand);
         log.logElement("Minor Brand", Minorbrand);
@@ -29,9 +29,11 @@ public class ftyp {
         for (int i = 0; i < ByteCompatibleBrand.length; i++) {
             Compatiblebrand.add(converter.arrayByteToString(ByteCompatibleBrand[i]));
         }
+        printData();
     }
 
-    public ftyp(InputStream S, long size) {
+    @Override
+    public atom constractAtom(InputStream S, long size) {
         ByteCompatibleBrand = new byte[(int) (size - 16) / 4][4];
         try {
             S.read(ByteMajorBrand);
@@ -43,6 +45,11 @@ public class ftyp {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return this;
+    }
+
+    public ftyp(InputStream S, long size) {
+        constractAtom(S, size);
     }
 
     public String getMajorBrand() {

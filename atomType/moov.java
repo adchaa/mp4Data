@@ -1,43 +1,21 @@
 package atomType;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 
-import util.*;
+public class moov extends container implements atom {
+    public mvhd mvhd = new mvhd();
+    public trak trak = new trak();
 
-public class moov {
-    public mvhd mvhd;
-    public trak trak;
+    @Override
+    public atom constractAtom(InputStream S, long size) {
+        atomMap.put("mvhd", mvhd);
+        atomMap.put("trak", trak);
+        fetchData(S, size);
+        return this;
+    }
 
-    public moov(InputStream S, long typesize) {
-
-        try {
-            byte[] b;
-            String type;
-            long subtypesize;
-            long size = 0;
-            while (size != typesize) {
-                b = S.readNBytes(globalVariables.ATOM_HEADER_SIZE);
-                subtypesize = converter.arrayByteToUnsignedLong(Arrays.copyOfRange(b, 0, 4));
-                type = converter.arrayByteToString(Arrays.copyOfRange(b, 4, 8));
-                size += subtypesize;
-                switch (type) {
-                    case "mvhd":
-                        mvhd = new mvhd(S);
-                        mvhd.printMvhd();
-                        break;
-                    case "trak":
-                        trak = new trak(S, subtypesize);
-                        break;
-                    default:
-                        log.logError("atom type \"" + type + "\" not supported.", true);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public moov(InputStream S, long size) {
+        constractAtom(S, size);
     }
 
 }

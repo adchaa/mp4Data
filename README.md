@@ -26,6 +26,8 @@ Majorbrand ---> getMajorBrand()
 
 ### 2) moov :
 
+![moov](https://developer.apple.com/library/archive/documentation/QuickTime/QTFF/art/qtff_08.gif)
+
 #### A) mvhd :
 
 - Version

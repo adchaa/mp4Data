@@ -3,8 +3,6 @@ package util;
 import java.util.HashMap;
 
 public abstract class textColor {
-    public static final String SANE = "\u001B[0m";
-
     enum Color {
         BLACK,
         RED,
@@ -26,6 +24,8 @@ public abstract class textColor {
         CYAN,
         WHITE
     }
+
+    public static final String SANE = "\u001B[0m";
 
     final static HashMap<Color, String> ColorMap = new HashMap<Color, String>();
     final static HashMap<BackgroundColor, String> BackgroundColorMap = new HashMap<BackgroundColor, String>();

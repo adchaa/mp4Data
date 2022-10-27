@@ -7,7 +7,7 @@ import util.converter;
 import java.io.IOException;
 import java.util.Date;
 
-public class tkhd {
+public class tkhd implements atom {
     private byte[] ByteVersion = new byte[1];
     // TODO : understand what is flag and add it to print
     private byte[] ByteFlags = new byte[3];
@@ -36,7 +36,7 @@ public class tkhd {
     private float Width;
     private float Height;
 
-    public void printTkhd() {
+    public void printData() {
         log.logType("TKHD");
         log.logElement("Version", Version);
         log.logElement("Creation Time", CreationTime);
@@ -59,9 +59,11 @@ public class tkhd {
         Volume = converter.arrayByteToFloat(ByteVolume);
         Height = converter.arrayByteToUnsignedFixedPoint(ByteHeight);
         Width = converter.arrayByteToUnsignedFixedPoint(ByteWidth);
+        printData();
     }
 
-    public tkhd(InputStream S) {
+    @Override
+    public atom constractAtom(InputStream S, long size) {
         // S.skip is used to skip bytes that is reseverd for apple
         try {
             S.read(ByteVersion);
@@ -83,6 +85,7 @@ public class tkhd {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return this;
     }
 
     public int getVersion() {

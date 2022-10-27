@@ -6,7 +6,7 @@ import java.util.Date;
 
 import util.*;
 
-public class mvhd {
+public class mvhd implements atom {
     private byte[] ByteVersion = new byte[1];
     private byte[] ByteFlags = new byte[3];
     private byte[] ByteCreationTime = new byte[4];
@@ -39,7 +39,8 @@ public class mvhd {
     private long CurrentTime;
     private long NextTrackID;
 
-    public mvhd(InputStream S) {
+    @Override
+    public atom constractAtom(InputStream S, long size) {
         try {
             S.read(ByteVersion);
             S.read(ByteFlags);
@@ -49,7 +50,7 @@ public class mvhd {
             S.read(ByteDuration);
             S.read(BytePreferredRate);
             S.read(BytePreferredVolume);
-            // skipByteped 10 byte because it is reserved for apple
+            // 10 bytes reserved for apple
             S.skip(10);
             S.read(ByteMatrixStructure);
             S.read(BytePreviewTime);
@@ -63,6 +64,7 @@ public class mvhd {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return this;
     }
 
     private void initValues() {
@@ -81,9 +83,10 @@ public class mvhd {
         SelectionDuration = converter.ToTimeScale(ByteSelectionDuration);
         CurrentTime = converter.arrayByteToUnsignedLong(ByteCurrentTime);
         NextTrackID = converter.arrayByteToUnsignedLong(ByteNextTrackID);
+        printData();
     }
 
-    public void printMvhd() {
+    public void printData() {
         log.logType("MVHD");
         log.logElement("Version", Version);
         log.logElement("Creation time", CreationTime);
