@@ -25,6 +25,8 @@ public class tkhd implements atom {
     private byte[] ByteWidth = new byte[4];
     private byte[] ByteHeight = new byte[4];
 
+    private long Size;
+
     // add flag alternategroup and matrix
     private int Version;
     private Date CreationTime;
@@ -63,7 +65,8 @@ public class tkhd implements atom {
     }
 
     @Override
-    public atom constractAtom(InputStream S, long size) {
+    public void constractAtom(InputStream S, long size) {
+        this.Size = size;
         // S.skip is used to skip bytes that is reseverd for apple
         try {
             S.read(ByteVersion);
@@ -85,7 +88,6 @@ public class tkhd implements atom {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return this;
     }
 
     public int getVersion() {
@@ -122,5 +124,10 @@ public class tkhd implements atom {
 
     public float getWidth() {
         return Width;
+    }
+
+    @Override
+    public long getSize() {
+        return Size;
     }
 }

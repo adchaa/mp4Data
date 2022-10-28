@@ -1,10 +1,8 @@
 package atomType;
 
-import java.util.Map;
 import java.util.HashMap;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.Principal;
 import java.util.Arrays;
 
 import util.*;
@@ -24,7 +22,7 @@ public abstract class container {
                 type = converter.arrayByteToString(Arrays.copyOfRange(b, 4, 8));
                 size += subtypesize;
                 if (atomMap.containsKey(type)) {
-                    atomMap.put(type, atomMap.get(type).constractAtom(S, subtypesize));
+                    atomMap.get(type).constractAtom(S, subtypesize);
                 } else {
                     log.logError("atom type \"" + type + "\" not supported.", true);
                 }

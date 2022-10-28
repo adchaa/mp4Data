@@ -1,18 +1,22 @@
 package atomType;
 
 import java.io.InputStream;
-import java.io.IOException;
-import java.util.Arrays;
-import util.*;
 
 public class trak extends container implements atom {
     public tkhd tkhd = new tkhd();
 
+    private long Size;
+
     @Override
-    public atom constractAtom(InputStream S, long size) {
+    public long getSize() {
+        return Size;
+    }
+
+    @Override
+    public void constractAtom(InputStream S, long size) {
+        this.Size = size;
         atomMap.put("tkhd", tkhd);
         fetchData(S, size);
-        return this;
     }
 
 }

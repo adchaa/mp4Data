@@ -10,6 +10,8 @@ public class ftyp implements atom {
     private byte[] ByteMinorBrand = new byte[4];
     private byte[][] ByteCompatibleBrand;
 
+    private long Size;
+
     private String Majorbrand;
     private long Minorbrand;
     private ArrayList<String> Compatiblebrand;
@@ -33,7 +35,8 @@ public class ftyp implements atom {
     }
 
     @Override
-    public atom constractAtom(InputStream S, long size) {
+    public void constractAtom(InputStream S, long size) {
+        this.Size = size;
         ByteCompatibleBrand = new byte[(int) (size - 16) / 4][4];
         try {
             S.read(ByteMajorBrand);
@@ -45,7 +48,6 @@ public class ftyp implements atom {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return this;
     }
 
     public ftyp(InputStream S, long size) {
@@ -62,5 +64,10 @@ public class ftyp implements atom {
 
     public ArrayList<String> getCompatibleBrand() {
         return Compatiblebrand;
+    }
+
+    @Override
+    public long getSize() {
+        return Size;
     }
 }

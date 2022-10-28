@@ -24,6 +24,8 @@ public class mvhd implements atom {
     private byte[] ByteCurrentTime = new byte[4];
     private byte[] ByteNextTrackID = new byte[4];
 
+    private long Size;
+
     private int Version;
     private Date CreationTime;
     private Date ModificationTime;
@@ -40,7 +42,8 @@ public class mvhd implements atom {
     private long NextTrackID;
 
     @Override
-    public atom constractAtom(InputStream S, long size) {
+    public void constractAtom(InputStream S, long size) {
+        this.Size = size;
         try {
             S.read(ByteVersion);
             S.read(ByteFlags);
@@ -64,7 +67,6 @@ public class mvhd implements atom {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return this;
     }
 
     private void initValues() {
@@ -159,6 +161,11 @@ public class mvhd implements atom {
 
     public long getNextTrackID() {
         return NextTrackID;
+    }
+
+    @Override
+    public long getSize() {
+        return Size;
     }
 
 }
