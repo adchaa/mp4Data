@@ -12,6 +12,16 @@ example:
 
 Majorbrand ---> getMajorBrand()
 
+all the atom have Size :
+
+```java
+private long Size;
+
+public long getSize() {
+        return Size;
+}
+```
+
 ### 1) ftyp
 
 - Majorbrand

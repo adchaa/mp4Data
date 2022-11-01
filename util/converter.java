@@ -17,6 +17,9 @@ public class converter {
     // info :
     // https://developer.apple.com/library/archive/documentation/QuickTime/QTFF/QTFFChap4/qtff4.html#//apple_ref/doc/uid/TP40000939-CH206-18737
     public static float[][] toTransformationMatrix(byte[] b) {
+        if (b.length > 36) {
+            log.logError("array length is longer than expected(36). array length = " + b.length, true);
+        }
         float[][] output = new float[3][3];
         for (byte i = 0; i < 3; i++) {
             for (byte j = 0; j < 2; j++) {
@@ -24,7 +27,7 @@ public class converter {
                         Arrays.copyOfRange(b, ((i * 3) + j) * 4, ((i * 3) + j + 1) * 4));
             }
             output[i][2] = arrayByteToUnsignedFixedPoint2_30(
-                    Arrays.copyOfRange(b, ((i * 3) + 2) * 4, ((i * 3) + 2 + 1) * 4));
+                    Arrays.copyOfRange(b, ((i * 3) + 2) * 4, ((i * 3) + 3) * 4));
         }
         return output;
     }

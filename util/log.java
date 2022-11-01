@@ -31,4 +31,8 @@ public class log extends textColor {
     public static void logElement(String element, Object value) {
         System.out.println(changeColor(element + " : ", Color.CYAN) + value);
     }
+
+    public static void logElement(String element) {
+        System.out.println(changeColor(element + " : ", Color.CYAN));
+    }
 }
