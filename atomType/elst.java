@@ -2,9 +2,6 @@ package atomType;
 
 import java.io.IOException;
 import java.io.InputStream;
-
-import javax.sound.midi.Track;
-
 import util.converter;
 import util.log;
 
